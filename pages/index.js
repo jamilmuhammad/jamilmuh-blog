@@ -101,7 +101,7 @@ export default function Home({ posts }) {
               </span>
             </h1>
           </div> */}
-          <div className="flex items-center justify-center">
+          {/* <div className="flex items-center justify-center">
             <div className="grid grid-cols-1 grid-rows-3 gap-8 py-12">
               <div className="my-2 grid items-start gap-8">
                 <div className="group relative">
@@ -135,7 +135,7 @@ export default function Home({ posts }) {
               <div className="my-2 grid items-start gap-8">
                 <div className="group relative">
                   <div className="animate-tilt absolute -inset-0.5 rounded-lg bg-gradient-to-r from-fuchsia-600 to-emerald-600 opacity-50 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
-                  <Link href="https://jamilmuhammad-blog.vercel.app/">
+                  <Link href="https://jamilmuhammad-blog.vercel.app/about">
                     <span className="relative flex items-center divide-x divide-gray-600 rounded-lg bg-white px-7 py-4 leading-none dark:bg-black">
                       <span className="flex items-center space-x-5">
                         <svg
@@ -195,7 +195,7 @@ export default function Home({ posts }) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <h2 className="flex pb-6 text-3xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl md:text-5xl">
           Latest
