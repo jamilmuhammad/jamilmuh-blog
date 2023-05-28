@@ -4,12 +4,14 @@ import {
   AiOutlineFacebook,
   AiOutlineTwitter,
   AiOutlineGlobal,
+  AiTwotoneShop
 } from 'react-icons/ai'
 import { FaLinkedinIn } from 'react-icons/fa'
 import { FiExternalLink, FiMail } from 'react-icons/fi'
 
 const components = {
   mail: FiMail,
+  store: AiTwotoneShop,
   github: AiOutlineGithub,
   facebook: AiOutlineFacebook,
   linkedin: FaLinkedinIn,
