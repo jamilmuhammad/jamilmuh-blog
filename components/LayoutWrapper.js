@@ -57,9 +57,9 @@ const LayoutWrapper = ({ children }) => {
                 </Link>
               ))}
             </div>
-            <CommandPalette navigation={navigation} />
+            {/* <CommandPalette navigation={navigation} /> */}
             <ThemeSwitch />
-            <DropMenu />
+            {/* <DropMenu /> */}
             {/* <MobileNav /> */}
           </div>
         </header>
