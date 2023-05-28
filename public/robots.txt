@@ -1,4 +1,4 @@
-Sitemap: https://musing.vercel.app/sitemap.xml
+Sitemap: https://jamilmuhammad-blog.vercel.app/sitemap.xml
 
 User-agent: *
 Allow: /

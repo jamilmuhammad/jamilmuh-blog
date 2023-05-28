@@ -1,21 +1,21 @@
 const siteMetadata = {
-  title: 'Blog | Parth Desai',
-  author: 'Parth Desai',
-  headerTitle: 'Mere Musings',
-  description: 'My personal blog where I share my musings',
-  snippets: 'Reuseable code snippets collected by Parth',
+  title: 'Blog | Muhammad Jamil',
+  author: 'Muhammad Jamil',
+  headerTitle: 'Jamil Muhammad Blog',
+  description: 'My personal blog where I share magic with code',
+  snippets: 'Reuseable code snippets collected by Jamil',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://musing.vercel.app',
-  siteRepo: 'https://github.com/pycoder2000/blog',
-  siteLogo: '/static/images/logo.png',
-  image: '/static/images/avatar.png',
+  siteUrl: 'https://jamilmuhammad-blog.vercel.app',
+  siteRepo: 'https://github.com/jamilmuhammad/jamilmuhammad-blog',
+  siteLogo: '/static/images/logo_purple.png',
+  image: '/static/images/avatar.jpg',
   socialBanner: '/static/images/twitter-card.png',
-  email: 'desaiparth2000@gmail.com',
-  github: 'https://github.com/pycoder2000',
-  twitter: 'https://twitter.com/_ParthDesai_',
-  linkedin: 'https://www.linkedin.com/in/parth-desai-2bb1b0160/',
-  website: 'https://parthdesai.vercel.app',
+  email: 'jamielmuhammadd@gmail.com',
+  github: 'https://github.com/jamilmuhammad',
+  twitter: 'https://twitter.com/jamilmuhammaddd',
+  linkedin: 'https://www.linkedin.com/in/jamilmuhammad/',
+  website: 'https://jamilmuhammad-blog.vercel.app',
   locale: 'en-US',
   analytics: {
     plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
@@ -46,7 +46,7 @@ const siteMetadata = {
     },
   },
   socialAccount: {
-    twitter: '_ParthDesai_',
+    twitter: 'jamilmuhammaddd',
   },
 }
 

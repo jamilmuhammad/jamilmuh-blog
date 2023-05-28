@@ -104,11 +104,11 @@ export default function PrivacyPolicy() {
                 <strong className="dark:text-gray-100">Website</strong> refers to Blog, accessible
                 from{' '}
                 <a
-                  href="https://musing.vercel.app/"
+                  href="https://jamilmuhammad-blog.vercel.app/"
                   rel="external nofollow noopener noreferrer"
                   target="_blank"
                 >
-                  https://musing.vercel.app/
+                  https://jamilmuhammad-blog.vercel.app/
                 </a>
               </p>
             </li>
@@ -471,11 +471,11 @@ export default function PrivacyPolicy() {
             <li>
               By email:{' '}
               <a
-                href="mailto:desaiparth2000@gmail.com"
+                href="mailto:jamielmuhammadd@gmail.com"
                 rel="external nofollow noopener noreferrer"
                 target="_blank"
               >
-                desaiparth2000@gmail.com
+                jamielmuhammadd@gmail.com
               </a>
             </li>
           </ul>

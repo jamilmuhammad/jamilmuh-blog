@@ -1,11 +1,11 @@
 {
-  "name": "parth-desai-blog",
-  "version": "1.5.6",
+  "name": "jamil-muhammad-blog",
+  "version": "0.0.1",
   "private": true,
   "author": {
-    "name": "Parth Desai",
-    "email": "desaiparth2000@gmail.com",
-    "url": "https://musing.vercel.app/"
+    "name": "Muhammad Jamil",
+    "email": "jamielmuhammadd@gmail.com",
+    "url": "https://jamilmuhammad-blog.vercel.app/"
   },
   "scripts": {
     "start": "cross-env SOCKET=true node ./scripts/next-remote-watch.js ./data",
@@ -19,7 +19,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pycoder2000/blog.git"
+    "url": "git+https://github.com/jamilmuhammad/jamilmuhammad-blog.git"
   },
   "dependencies": {
     "@fontsource/inter": "4.5.2",
