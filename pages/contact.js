@@ -1,6 +1,6 @@
-import siteMetadata from '@/data/siteMetadata'
-import ContactLink from '@/components/ContactLink'
-import { PageSEO } from '@/components/SEO'
+import siteMetadata from "@/data/siteMetadata"
+import ContactLink from "@/components/ContactLink"
+import { PageSEO } from "@/components/SEO"
 
 const Contact = () => {
   return (
@@ -17,7 +17,11 @@ const Contact = () => {
               title="gmail"
               icon="jamielmuhammadd"
             />
-            <ContactLink href="https://github.com/jamilmuhammad" title="github" icon="jamilmuhammad" />
+            <ContactLink
+              href="https://github.com/jamilmuhammad"
+              title="github"
+              icon="jamilmuhammad"
+            />
             <ContactLink
               href="https://twitter.com/jamilmuhammaddd"
               title="twitter"

@@ -4,10 +4,10 @@ import {
   AiOutlineFacebook,
   AiOutlineTwitter,
   AiOutlineGlobal,
-  AiTwotoneShop
-} from 'react-icons/ai'
-import { FaLinkedinIn } from 'react-icons/fa'
-import { FiExternalLink, FiMail } from 'react-icons/fi'
+  AiTwotoneShop,
+} from "react-icons/ai"
+import { FaLinkedinIn } from "react-icons/fa"
+import { FiExternalLink, FiMail } from "react-icons/fi"
 
 const components = {
   mail: FiMail,
@@ -21,7 +21,7 @@ const components = {
 }
 
 const SocialIcon = ({ kind, href, size = 8 }) => {
-  if (!href || (kind === 'mail' && !/^mailto:\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/.test(href)))
+  if (!href || (kind === "mail" && !/^mailto:\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/.test(href)))
     return null
 
   const SocialSvg = components[kind]
