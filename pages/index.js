@@ -1,22 +1,29 @@
-import Link from '@/components/Link'
-import { PageSEO } from '@/components/SEO'
-import Tag from '@/components/Tag'
-import siteMetadata from '@/data/siteMetadata'
-import { getAllFilesFrontMatter } from '@/lib/mdx'
-import formatDate from '@/lib/utils/formatDate'
-import { RoughNotation } from 'react-rough-notation'
-import NewsletterForm from '@/components/NewsletterForm'
-import ViewCounter from '@/components/ViewCounter'
+import Link from "@/components/Link"
+import { PageSEO } from "@/components/SEO"
+import Tag from "@/components/Tag"
+import siteMetadata from "@/data/siteMetadata"
+import { getAllFilesFrontMatter } from "@/lib/mdx"
+import formatDate from "@/lib/utils/formatDate"
+import { RoughNotation } from "react-rough-notation"
+import NewsletterForm from "@/components/NewsletterForm"
+import ViewCounter from "@/components/ViewCounter"
+import { useEffect, useState } from "react"
 
 const MAX_DISPLAY = 3
 
 export async function getStaticProps() {
-  const posts = await getAllFilesFrontMatter('blog')
+  const posts = await getAllFilesFrontMatter("blog")
 
   return { props: { posts } }
 }
 
 export default function Home({ posts }) {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
@@ -24,7 +31,7 @@ export default function Home({ posts }) {
         <div className="mb-12 flex flex-col items-center gap-x-12 xl:flex-row">
           <div className="pt-6">
             <h1 className="pb-6 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-              Hi, I am{' '}
+              Hi, I am{" "}
               <span className="text-primary-color-500 dark:text-primary-color-dark-500">Jamil</span>
             </h1>
             <h2 className="prose pt-5 text-lg text-gray-600 dark:text-gray-300">
@@ -32,7 +39,7 @@ export default function Home({ posts }) {
               side projects and learning new technologies.
             </h2>
             <p className="pt-5 text-lg leading-7 text-slate-600 dark:text-slate-300 sm:block md:hidden lg:hidden">
-              This is my place for{' '}
+              This is my place for{" "}
               <RoughNotation
                 animate="true"
                 type="box"
@@ -47,7 +54,7 @@ export default function Home({ posts }) {
               in between. Have a good read!
             </p>
             <p className="hidden pt-10 text-lg leading-7 text-slate-600 dark:text-slate-300 md:block">
-              This is my place for{' '}
+              This is my place for{" "}
               <RoughNotation
                 animate="true"
                 type="highlight"
@@ -59,7 +66,7 @@ export default function Home({ posts }) {
               >
                 thoughts, imagination & everything&nbsp;
               </RoughNotation>
-              in between. Have a good read!{' '}
+              in between. Have a good read!{" "}
               {/* <div className="mt-8 text-slate-600 dark:text-slate-400">
                 <span className="text-sm">Press</span>{' '}
                 <span className="rounded-md bg-gray-300 p-1 text-sm text-gray-900 dark:bg-gray-400">
@@ -202,7 +209,7 @@ export default function Home({ posts }) {
         </h2>
         <hr className="border-gray-200 dark:border-gray-700" />
         <ul>
-          {!posts.length && 'No posts found.'}
+          {!posts.length && "No posts found."}
           {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
             const { slug, date, title, summary, tags } = frontMatter
             return (
@@ -211,43 +218,45 @@ export default function Home({ posts }) {
                 key={slug}
                 className="group flex bg-transparent bg-opacity-20 px-2 transition duration-100 hover:scale-105 hover:rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800"
               >
-                <li className="py-6">
-                  <article>
-                    <div className="space-y-2 bg-transparent bg-opacity-20 p-2 transition duration-200 hover:rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                      <dl>
-                        <dt className="sr-only">Published on</dt>
-                        <dd className="text-sm font-normal leading-6 text-gray-500 dark:text-gray-400">
-                          <time dateTime={date}>{formatDate(date)}</time>
-                          {' • '}
-                          <ViewCounter className="mx-1" slug={slug} />
-                          views
-                        </dd>
-                      </dl>
-                      <div className="space-y-5 xl:col-span-4">
-                        <div className="space-y-1">
-                          <div>
-                            <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                              <Link
-                                href={`/blog/${slug}`}
-                                className="text-gray-900 transition duration-500 ease-in-out hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-500"
-                              >
-                                {title}
-                              </Link>
-                            </h2>
-                          </div>
-                          <div className="flex flex-wrap">
-                            {tags.map((tag) => (
-                              <Tag key={tag} text={tag} />
-                            ))}
-                          </div>
-                          <div className="prose max-w-none pt-5 text-gray-500 dark:text-gray-400">
-                            {summary}
+                {mounted && (
+                  <li className="py-6">
+                    <article>
+                      <div className="space-y-2 bg-transparent bg-opacity-20 p-2 transition duration-200 hover:rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+                        <dl>
+                          <dt className="sr-only">Published on</dt>
+                          <dd className="text-sm font-normal leading-6 text-gray-500 dark:text-gray-400">
+                            <time dateTime={date}>{formatDate(date)}</time>
+                            {" • "}
+                            <ViewCounter className="mx-1" slug={slug} />
+                            views
+                          </dd>
+                        </dl>
+                        <div className="space-y-5 xl:col-span-4">
+                          <div className="space-y-1">
+                            <div>
+                              <h2 className="text-2xl font-bold leading-8 tracking-tight">
+                                <Link
+                                  href={`/blog/${slug}`}
+                                  className="text-gray-900 transition duration-500 ease-in-out hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-500"
+                                >
+                                  {title}
+                                </Link>
+                              </h2>
+                            </div>
+                            <div className="flex flex-wrap">
+                              {tags.map((tag) => (
+                                <Tag key={tag} text={tag} />
+                              ))}
+                            </div>
+                            <div className="prose max-w-none pt-5 text-gray-500 dark:text-gray-400">
+                              {summary}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </article>
-                </li>
+                    </article>
+                  </li>
+                )}
               </Link>
             )
           })}
@@ -264,7 +273,7 @@ export default function Home({ posts }) {
           </Link>
         </div>
       )}
-      {siteMetadata.newsletter.provider !== '' && (
+      {siteMetadata.newsletter.provider !== "" && (
         <div className="flex items-center justify-center pt-4">{/* <NewsletterForm /> */}</div>
       )}
     </>
