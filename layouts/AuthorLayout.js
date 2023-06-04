@@ -1,10 +1,10 @@
-import Image from '@/components/Image'
-import { PageSEO } from '@/components/SEO'
-import Link from '@/components/Link'
-import Experience from '@/components/Experience'
-import experienceData from '@/data/experienceData'
-import { RoughNotation } from 'react-rough-notation'
-import { AiOutlineTwitter } from 'react-icons/ai'
+import Image from "@/components/Image"
+import { PageSEO } from "@/components/SEO"
+import Link from "@/components/Link"
+import Experience from "@/components/Experience"
+import experienceData from "@/data/experienceData"
+import { RoughNotation } from "react-rough-notation"
+import { AiOutlineTwitter } from "react-icons/ai"
 
 export default function AuthorLayout({ children, frontMatter }) {
   const {
@@ -25,7 +25,7 @@ export default function AuthorLayout({ children, frontMatter }) {
     <>
       <PageSEO title={`About - ${name}`} description={`A little trivia me`} />
       <div className="">
-        <div className="space-y-2 pt-6 pb-8 md:space-y-5 md:pl-16">
+        <div className="space-y-2 pb-8 pt-6 md:space-y-5 md:pl-16">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
             About
           </h1>
@@ -35,13 +35,13 @@ export default function AuthorLayout({ children, frontMatter }) {
             <Image
               src={avatar}
               alt="avatar"
-              width="192px"
-              height="192px"
+              width={192}
+              height={192}
               className="h-48 w-48 rounded-full xl:rounded-full"
               placeholder="blur"
               blurDataURL="/static/images/SVG-placeholder.png"
             />
-            <h3 className="pt-4 pb-2 text-2xl font-bold leading-8 tracking-tight">{name}</h3>
+            <h3 className="pb-2 pt-4 text-2xl font-bold leading-8 tracking-tight">{name}</h3>
             <div className="text-gray-500 dark:text-gray-400">{occupation}</div>
             <div className="text-gray-500 dark:text-gray-400">{company}</div>
             <div className="flex flex-col pt-3">
@@ -52,24 +52,24 @@ export default function AuthorLayout({ children, frontMatter }) {
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                <AiOutlineTwitter className="mr-2 mb-0.5 inline h-5 w-5" />
+                <AiOutlineTwitter className="mb-0.5 mr-2 inline h-5 w-5" />
                 Say Hi!
               </a>
             </div>
           </div>
-          <div className="prose max-w-none pt-8 pb-8 dark:prose-dark xl:col-span-2">
+          <div className="prose max-w-none pb-8 pt-8 dark:prose-dark xl:col-span-2">
             <p>
               <RoughNotation
                 type="bracket"
-                brackets={['left', 'right']}
+                brackets={["left", "right"]}
                 show={true}
                 color="#FF0000"
                 animationDelay={300}
                 animationDuration={3000}
               >
-                {text1} Currently, I am focused on building data pipelines and automating them at{' '}
+                {text1} Currently, I am focused on building data pipelines and automating them at{" "}
                 <Link
-                  href={'https://www.accenture.com/in-en'}
+                  href={"https://www.accenture.com/in-en"}
                   className="special-underline no-underline hover:text-gray-100 dark:text-gray-100 hover:dark:text-gray-100"
                 >
                   Accenture
@@ -78,9 +78,9 @@ export default function AuthorLayout({ children, frontMatter }) {
             </p>
             <br />
             <p>
-              This is what I am doing right{' '}
+              This is what I am doing right{" "}
               <Link
-                href={'/now'}
+                href={"/now"}
                 className="special-underline no-underline hover:text-gray-100 dark:text-gray-100 hover:dark:text-gray-100"
               >
                 now
@@ -91,10 +91,10 @@ export default function AuthorLayout({ children, frontMatter }) {
               I am always looking to learn new things. I am currently working on a few projects
               related to
               <span className="font-semibold">
-                {' '}
-                Natural Language Processing and Machine Learning.{' '}
+                {" "}
+                Natural Language Processing and Machine Learning.{" "}
               </span>
-              At the same time I am{' '}
+              At the same time I am{" "}
               <RoughNotation
                 type="underline"
                 show={true}
@@ -109,7 +109,7 @@ export default function AuthorLayout({ children, frontMatter }) {
             </p>
             <p className="hidden md:block">
               I am always looking to learn new things. I am currently working on a few projects
-              related to{' '}
+              related to{" "}
               <RoughNotation
                 animationDelay="1000"
                 animationDuration="3000"
@@ -119,10 +119,10 @@ export default function AuthorLayout({ children, frontMatter }) {
                 show={true}
               >
                 <span className="text-black dark:text-white">
-                  Natural Language Processing and Machine Learning.{' '}
+                  Natural Language Processing and Machine Learning.{" "}
                 </span>
               </RoughNotation>
-              At the same time I am{' '}
+              At the same time I am{" "}
               <RoughNotation
                 type="underline"
                 show={true}
@@ -139,9 +139,9 @@ export default function AuthorLayout({ children, frontMatter }) {
             <p>
               I am a strong advocate for open source and I am always interested in working on new
               projects with new people. Feel free to reach out if you have anything to talk about,
-              you can reach me through{' '}
+              you can reach me through{" "}
               <Link
-                href={'mailto:jamielmuhammadd@gmail.com'}
+                href={"mailto:jamielmuhammadd@gmail.com"}
                 className="special-underline no-underline hover:text-gray-100 dark:text-gray-100 hover:dark:text-gray-100"
               >
                 Mail
@@ -158,10 +158,10 @@ export default function AuthorLayout({ children, frontMatter }) {
                     </g>
                   </g>
                 </svg>
-              </Link>{' '}
-              or{' '}
+              </Link>{" "}
+              or{" "}
               <Link
-                href={'https://api.whatsapp.com/send?phone=916358190818&text=hi'}
+                href={"https://api.whatsapp.com/send?phone=916358190818&text=hi"}
                 className="special-underline no-underline hover:text-gray-100 dark:text-gray-100 hover:dark:text-gray-100"
               >
                 Whatsapp
@@ -183,11 +183,11 @@ export default function AuthorLayout({ children, frontMatter }) {
             <br />
             <p>
               <Link
-                href={'/uses'}
+                href={"/uses"}
                 className="special-underline no-underline hover:text-gray-100 dark:text-gray-100 hover:dark:text-gray-100"
               >
                 Here
-              </Link>{' '}
+              </Link>{" "}
               you can see what I use on daily basis
             </p>
             <br />
@@ -196,12 +196,12 @@ export default function AuthorLayout({ children, frontMatter }) {
               Welcome to my home on the internet. This site functions as a blog/portfolio, a place
               to share code and thoughts. Opinions are my own.
             </p>
-            <p>
+            <div>
               I learnt how to build this site from the most awesome people in the community:
               <ul>
                 <li>
                   <Link
-                    href={'https://github.com/timlrx/tailwind-nextjs-starter-blog'}
+                    href={"https://github.com/timlrx/tailwind-nextjs-starter-blog"}
                     className="special-underline no-underline hover:text-gray-100 dark:text-gray-100 hover:dark:text-gray-100"
                   >
                     Timothy's Next.js and Tailwind CSS template
@@ -223,7 +223,7 @@ export default function AuthorLayout({ children, frontMatter }) {
                 </li>
                 <li>
                   <Link
-                    href={'https://www.einargudni.com/'}
+                    href={"https://www.einargudni.com/"}
                     className="special-underline no-underline hover:text-gray-100 dark:text-gray-100 hover:dark:text-gray-100"
                   >
                     Einar Guðjónsson
@@ -244,16 +244,16 @@ export default function AuthorLayout({ children, frontMatter }) {
                   : Now page, navigation style, animations and much more.
                 </li>
               </ul>
-            </p>
+            </div>
           </div>
         </div>
         <div className="mt-10 md:pl-16">
-          <div className="space-y-2 pt-6 pb-8 md:space-y-5">
+          <div className="space-y-2 pb-8 pt-6 md:space-y-5">
             <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
               Experience
             </h1>
           </div>
-          <div className="max-w-none pt-8 pb-8 xl:col-span-2">
+          <div className="max-w-none pb-8 pt-8 xl:col-span-2">
             {experienceData.map((d) => (
               <Experience
                 key={d.company}
