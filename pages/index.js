@@ -235,12 +235,12 @@ export default function Home({ posts }) {
                           <div className="space-y-1">
                             <div>
                               <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                                <Link
+                                <button
                                   href={`/blog/${slug}`}
                                   className="text-gray-900 transition duration-500 ease-in-out hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-500"
                                 >
                                   {title}
-                                </Link>
+                                </button>
                               </h2>
                             </div>
                             <div className="flex flex-wrap">
