@@ -65,7 +65,7 @@ const Giscus = () => {
 
   useEffect(() => {
     setHydrated(true)
-  })
+  }, [])
 
   return (
     <>
