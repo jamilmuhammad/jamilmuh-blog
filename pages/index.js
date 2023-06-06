@@ -213,8 +213,7 @@ export default function Home({ posts }) {
           {posts.slice(0, MAX_DISPLAY).map((frontMatter) => {
             const { slug, date, title, summary, tags } = frontMatter
             return (
-              <Link
-                href={`/blog/${slug}`}
+              <div
                 key={slug}
                 className="group flex bg-transparent bg-opacity-20 px-2 transition duration-100 hover:scale-105 hover:rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800"
               >
@@ -235,12 +234,12 @@ export default function Home({ posts }) {
                           <div className="space-y-1">
                             <div>
                               <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                                <button
+                                <Link
                                   href={`/blog/${slug}`}
                                   className="text-gray-900 transition duration-500 ease-in-out hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-500"
                                 >
                                   {title}
-                                </button>
+                                </Link>
                               </h2>
                             </div>
                             <div className="flex flex-wrap">
@@ -257,7 +256,7 @@ export default function Home({ posts }) {
                     </article>
                   </li>
                 )}
-              </Link>
+              </div>
             )
           })}
         </ul>
