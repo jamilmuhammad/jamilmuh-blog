@@ -47,15 +47,13 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
           <header className="pt-6 xl:pb-5">
             <div className="space-y-1 text-center">
               <dl className="space-y-10">
-                <div>
-                  <dt className="sr-only">Published on</dt>
-                  <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                    <time dateTime={date}>
-                      <BsCalendarDate className="-mt-1.5 mr-1.5 inline h-4 w-4" />
-                      {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
-                    </time>
-                  </dd>
-                </div>
+                <dt className="sr-only">Published on</dt>
+                <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                  <time dateTime={date}>
+                    <BsCalendarDate className="-mt-1.5 mr-1.5 inline h-4 w-4" />
+                    {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
+                  </time>
+                </dd>
               </dl>
               <div>
                 <PageTitle>{title}</PageTitle>
@@ -85,8 +83,8 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                       {author.avatar && (
                         <Image
                           src={author.avatar}
-                          width={38}
-                          height={38}
+                          width={40}
+                          height={40}
                           alt="avatar"
                           className="h-10 w-10 rounded-full"
                           placeholder="blur"
@@ -210,17 +208,6 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                           bgColor="#25D366"
                         />
                       </WhatsappShareButton>
-                      <Link
-                        href={editUrl(fileName)}
-                        className="flex items-center overflow-hidden rounded-full !bg-[#5A6272] hover:scale-110"
-                      >
-                        <SocialIcon
-                          network="github"
-                          style={{ height: 35, width: 35 }}
-                          fgColor="#fff"
-                          bgColor="#5A6272"
-                        />
-                      </Link>
                     </>
                   )}
                 </div>
@@ -236,9 +223,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                     </h2>
                     <div className="flex flex-wrap">
                       {tags.map((tag) => (
-                        <>
-                          <Tag text={tag} />
-                        </>
+                        <Tag key={tag} text={tag} />
                       ))}
                     </div>
                   </div>
