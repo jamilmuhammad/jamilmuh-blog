@@ -19,6 +19,7 @@ import { HiOutlinePencil, HiOutlineClock, HiOutlineEye } from "react-icons/hi"
 import { BsCalendarDate } from "react-icons/bs"
 import { useEffect, useState } from "react"
 import Tag from "@/components/Tag"
+import ViewCounter from "@/components/ViewCounter"
 
 const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/master/data/blog/${fileName}`
 
@@ -66,6 +67,11 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                 <span className="flex items-center gap-1.5">
                   <HiOutlineClock className="h-5 w-5" />
                   {readingTime.text}
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <HiOutlineEye className="h-5 w-5" />
+                  <ViewCounter className="ml-0" slug={slug} blogPage={true} />
+                  <div className="-ml-0.5">Views</div>
                 </span>
               </div>
             </div>
