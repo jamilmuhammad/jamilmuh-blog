@@ -18,6 +18,7 @@ import { Provider } from "@lyket/react"
 
 const isDevelopment = process.env.NODE_ENV === "development"
 const isSocket = process.env.SOCKET
+const lyketApiKey = process.env.NEXT_PUBLIC_LYKET_API_KEY
 
 NProgress.configure({ showSpinner: false })
 
@@ -53,7 +54,7 @@ const defaultTheme = {
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider session={session}>
-      <Provider apiKey="pt_7c8b6840f5ba39cd3b2b471cd8efc2" theme={defaultTheme}>
+      <Provider apiKey={lyketApiKey} theme={defaultTheme}>
         <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
           <ProgressBar bgcolor="#2dd4bf" />
           <ScrollTop />
