@@ -25,6 +25,8 @@ const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/master/data/blog/${
 
 const postDateTemplate = { weekday: "long", year: "numeric", month: "long", day: "numeric" }
 
+const postDateGeneralTemplate = { year: "numeric", month: "short", day: "numeric" }
+
 export default function PostLayout({ frontMatter, authorDetails, next, prev, children }) {
   const { slug, fileName, date, title, tags, readingTime } = frontMatter
 
@@ -241,8 +243,33 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                         <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                           Previous Article
                         </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/blog/${prev.slug}`}>{prev.title}</Link>
+                        <div className="flex items-center">
+                          <Image
+                            src={"/static/images/Blog/apple-privacy.jpg"}
+                            width={70}
+                            height={70}
+                            alt=""
+                            className="h-25 w-25 rounded-md dark:shadow-gray-800"
+                            placeholder="blur"
+                            blurDataURL="/static/images/SVG-placeholder.png"
+                          />
+                          <div className="ml-2 flex flex-col">
+                            <Link
+                              href={`/blog/${prev.slug}`}
+                              className="link-underline mb-2 inline-block text-primary-500 duration-500 ease-in-out hover:text-primary-600 dark:hover:text-primary-400"
+                            >
+                              <p className="w-20 overflow-hidden truncate ">{prev.title}</p>
+                            </Link>
+                            <time
+                              dateTime={prev.date}
+                              className="text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
+                            >
+                              {new Date(prev.date).toLocaleDateString(
+                                siteMetadata.locale,
+                                postDateGeneralTemplate
+                              )}
+                            </time>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -251,8 +278,33 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                         <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                           Next Article
                         </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/blog/${next.slug}`}>{next.title}</Link>
+                        <div className="flex items-center">
+                          <Image
+                            src={"/static/images/Blog/apple-privacy.jpg"}
+                            width={70}
+                            height={70}
+                            alt=""
+                            className="h-25 w-25 rounded-md dark:shadow-gray-800"
+                            placeholder="blur"
+                            blurDataURL="/static/images/SVG-placeholder.png"
+                          />
+                          <div className="ml-2 flex flex-col">
+                            <Link
+                              href={`/blog/${next.slug}`}
+                              className="link-underline mb-2 inline-block text-primary-500 duration-500 ease-in-out hover:text-primary-600 dark:hover:text-primary-400"
+                            >
+                              <p className="w-20 overflow-hidden truncate ">{next.title}</p>
+                            </Link>
+                            <time
+                              dateTime={next.date}
+                              className="text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
+                            >
+                              {new Date(next.date).toLocaleDateString(
+                                siteMetadata.locale,
+                                postDateGeneralTemplate
+                              )}
+                            </time>
+                          </div>
                         </div>
                       </div>
                     )}
