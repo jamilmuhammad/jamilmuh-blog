@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { TbArrowBigUp } from "react-icons/tb"
 
-const ScrollTop = () => {
+export function Scroll() {
   const [show, setShow] = useState(false)
 
   useEffect(() => {
@@ -17,6 +17,18 @@ const ScrollTop = () => {
   const handleScrollTop = () => {
     window.scrollTo({ top: 0 })
   }
+
+  const value = {
+    show,
+    setShow,
+    handleScrollTop,
+  }
+
+  return value
+}
+
+const ScrollTop = () => {
+  const { show, setShow, handleScrollTop } = Scroll()
 
   return (
     <div
