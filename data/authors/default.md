@@ -4,6 +4,7 @@ avatar: /static/images/avatar.jpg
 occupation: Data Engineer
 company: Accenture
 email: jamielmuhammadd@gmail.com
+date: "2001-11-05"
 twitter: https://twitter.com/jamilmuhammaddd
 linkedin: https://www.linkedin.com/in/jamilmuhammad/
 github: https://github.com/jamilmuhammad

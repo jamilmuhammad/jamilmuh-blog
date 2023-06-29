@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from "next/document"
 class MyDocument extends Document {
   render() {
     return (
@@ -103,17 +103,18 @@ class MyDocument extends Document {
             content="Welcome to my personal blog where I share my musings. I am a Data Engineer passionate about Data Science, building pipelines and Automation."
           />
           <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
           <link
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+            nonce={crypto.randomUUID().toString("base64")}
             rel="stylesheet"
-          />
+          ></link>
           <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css"
-            integrity="sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc"
+            src="https://cdn.jsdelivr.net/npm/katex@0.13.11/"
+            integrity="sha256-el5Cscw61pCMiNuukuyBCrJs4nGC+CYmhtUJAWelKUU="
             crossOrigin="anonymous"
-          />
+          ></link>
           <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml" />
           <meta
             name="google-site-verification"

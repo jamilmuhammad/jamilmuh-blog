@@ -1,24 +1,26 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 import Link from "next/link"
+import { forwardRef } from "react"
 
-const CustomLink = ({ href, ...rest }) => {
+const CustomLinkHeader = forwardRef(({ href, ...rest }, ref) => {
   const isInternalLink = href && href.startsWith("/")
   const isAnchorLink = href && href.startsWith("#")
 
   if (isInternalLink) {
     return (
-      <Link href={href} passHref legacyBehavior>
+      <Link ref={ref} href={href} passHref legacyBehavior>
         <a {...rest} />
       </Link>
     )
   }
 
   if (isAnchorLink) {
-    return <a href={href} {...rest} />
+    return <a ref={ref} href={href} {...rest} />
   }
 
   return (
     <a
+      ref={ref}
       className="special-underline-new no-underline hover:text-gray-100 dark:hover:text-gray-100"
       target="_blank"
       rel="noopener noreferrer"
@@ -26,6 +28,8 @@ const CustomLink = ({ href, ...rest }) => {
       {...rest}
     />
   )
-}
+})
 
-export default CustomLink
+CustomLinkHeader.displayName = "CustomLinkHeader"
+
+export default CustomLinkHeader

@@ -1,13 +1,11 @@
-import Link from '@/components/Link'
-import PageTitle from '@/components/PageTitle'
-import SectionContainer from '@/components/SectionContainer'
-import { BlogSEO } from '@/components/SEO'
-import Image from '@/components/Image'
-import ViewCounter from '@/components/ViewCounter'
-import Tag from '@/components/Tag'
-import siteMetadata from '@/data/siteMetadata'
-import Comments from '@/components/comments'
-import ScrollTopAndComment from '@/components/ScrollTopAndComment'
+import Link from "@/components/Link"
+import PageTitle from "@/components/PageTitle"
+import SectionContainer from "@/components/SectionContainer"
+import { BlogSEO } from "@/components/SEO"
+import Image from "@/components/Image"
+import siteMetadata from "@/data/siteMetadata"
+import Comments from "@/components/comments"
+import ScrollTopAndComment from "@/components/ScrollTopAndComment"
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -15,17 +13,29 @@ import {
   LinkedinShareButton,
   RedditShareButton,
   WhatsappShareButton,
-} from 'react-share'
-import { SocialIcon } from 'react-social-icons'
-import { HiOutlinePencil, HiOutlineClock, HiOutlineEye } from 'react-icons/hi'
-import { BsCalendarDate } from 'react-icons/bs'
+} from "react-share"
+import { SocialIcon } from "react-social-icons"
+import { HiOutlinePencil, HiOutlineClock, HiOutlineEye } from "react-icons/hi"
+import { BsCalendarDate } from "react-icons/bs"
+import { useEffect, useState } from "react"
+import Tag from "@/components/Tag"
+import ViewCounter from "@/components/ViewCounter"
 
 const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/master/data/blog/${fileName}`
 
-const postDateTemplate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+const postDateTemplate = { weekday: "long", year: "numeric", month: "long", day: "numeric" }
+
+const postDateGeneralTemplate = { year: "numeric", month: "short", day: "numeric" }
 
 export default function PostLayout({ frontMatter, authorDetails, next, prev, children }) {
-  const { slug, fileName, date, title, images, tags, readingTime } = frontMatter
+  const { slug, fileName, date, title, tags, readingTime } = frontMatter
+
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
   const postUrl = `${siteMetadata.siteUrl}/blog/${slug}`
   return (
     <SectionContainer>
@@ -40,15 +50,13 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
           <header className="pt-6 xl:pb-5">
             <div className="space-y-1 text-center">
               <dl className="space-y-10">
-                <div>
-                  <dt className="sr-only">Published on</dt>
-                  <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                    <time dateTime={date}>
-                      <BsCalendarDate className="mr-1.5 -mt-1.5 inline h-4 w-4" />
-                      {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
-                    </time>
-                  </dd>
-                </div>
+                <dt className="sr-only">Published on</dt>
+                <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
+                  <time dateTime={date}>
+                    <BsCalendarDate className="-mt-1.5 mr-1.5 inline h-4 w-4" />
+                    {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
+                  </time>
+                </dd>
               </dl>
               <div>
                 <PageTitle>{title}</PageTitle>
@@ -72,9 +80,9 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
           </header>
           <div
             className="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
-            style={{ gridTemplateRows: 'auto 1fr' }}
+            style={{ gridTemplateRows: "auto 1fr" }}
           >
-            <dl className="pt-6 pb-10 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
+            <dl className="pb-10 pt-6 xl:border-b xl:border-gray-200 xl:pt-11 xl:dark:border-gray-700">
               <dt className="sr-only">Authors</dt>
               <dd>
                 <ul className="flex justify-center space-x-8 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
@@ -83,8 +91,8 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                       {author.avatar && (
                         <Image
                           src={author.avatar}
-                          width="38px"
-                          height="38px"
+                          width={40}
+                          height={40}
                           alt="avatar"
                           className="h-10 w-10 rounded-full"
                           placeholder="blur"
@@ -101,7 +109,7 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                               href={author.twitter}
                               className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                             >
-                              {author.twitter.replace('https://twitter.com/', '@')}
+                              {author.twitter.replace("https://twitter.com/", "@")}
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -125,98 +133,91 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
               </dd>
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">{children}</div>
-              <div className="grid place-items-center pt-6 pb-6 text-sm text-gray-700 dark:text-gray-300">
+              <div className="prose max-w-none pb-8 pt-10 dark:prose-dark">{children}</div>
+              <div className="grid place-items-center pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">
                 <div className="flex items-center space-x-4">
-                  <TwitterShareButton
-                    url={postUrl}
-                    title={title}
-                    via={siteMetadata.socialAccount.twitter}
-                    className="flex items-center overflow-hidden rounded-full !bg-[#1da1f2] hover:scale-110"
-                  >
-                    <SocialIcon
-                      network="twitter"
-                      style={{ height: 35, width: 35 }}
-                      fgColor="#fff"
-                      bgColor="#1da1f2"
-                    />
-                  </TwitterShareButton>
-                  <FacebookShareButton
-                    url={postUrl}
-                    quote={title}
-                    className="flex items-center overflow-hidden rounded-full !bg-[#1877f2] hover:scale-110"
-                  >
-                    <SocialIcon
-                      network="facebook"
-                      style={{ height: 35, width: 35 }}
-                      fgColor="#fff"
-                      bgColor="#1877f2"
-                    />
-                  </FacebookShareButton>
-                  <EmailShareButton
-                    body={'Check out this blog'}
-                    subject={title}
-                    separator=" : "
-                    url={postUrl}
-                    className="flex items-center overflow-hidden rounded-full !bg-[#B61AC1] hover:scale-110"
-                  >
-                    <SocialIcon
-                      network="email"
-                      style={{ height: 35, width: 35 }}
-                      fgColor="#fff"
-                      bgColor="#B61AC1"
-                    />
-                  </EmailShareButton>
-                  <LinkedinShareButton
-                    summary={'Check out this blog'}
-                    title={title}
-                    source={siteMetadata.siteUrl}
-                    url={postUrl}
-                    className="flex items-center overflow-hidden rounded-full !bg-[#0072b1] hover:scale-110"
-                  >
-                    <SocialIcon
-                      network="linkedin"
-                      style={{ height: 35, width: 35 }}
-                      fgColor="#fff"
-                      bgColor="#0072b1"
-                    />
-                  </LinkedinShareButton>
-                  <RedditShareButton
-                    title={title}
-                    url={postUrl}
-                    className="flex items-center overflow-hidden rounded-full !bg-[#ff4500] hover:scale-110"
-                  >
-                    <SocialIcon
-                      network="reddit"
-                      style={{ height: 35, width: 35 }}
-                      fgColor="#fff"
-                      bgColor="#ff4500"
-                    />
-                  </RedditShareButton>
-                  <WhatsappShareButton
-                    title={title}
-                    separator={' : '}
-                    url={postUrl}
-                    className="flex items-center overflow-hidden rounded-full !bg-[#25D366] hover:scale-110"
-                  >
-                    <SocialIcon
-                      network="whatsapp"
-                      style={{ height: 35, width: 35 }}
-                      fgColor="#fff"
-                      bgColor="#25D366"
-                    />
-                  </WhatsappShareButton>
-                  <Link
-                    href={editUrl(fileName)}
-                    className="flex items-center overflow-hidden rounded-full !bg-[#5A6272] hover:scale-110"
-                  >
-                    <SocialIcon
-                      network="github"
-                      style={{ height: 35, width: 35 }}
-                      fgColor="#fff"
-                      bgColor="#5A6272"
-                    />
-                  </Link>
+                  {mounted && (
+                    <>
+                      <TwitterShareButton
+                        url={postUrl}
+                        title={title}
+                        via={siteMetadata.socialAccount.twitter}
+                        className="flex items-center overflow-hidden rounded-full !bg-[#1da1f2] hover:scale-110"
+                      >
+                        <SocialIcon
+                          network="twitter"
+                          style={{ height: 35, width: 35 }}
+                          fgColor="#fff"
+                          bgColor="#1da1f2"
+                        />
+                      </TwitterShareButton>
+                      <FacebookShareButton
+                        url={postUrl}
+                        quote={title}
+                        className="flex items-center overflow-hidden rounded-full !bg-[#1877f2] hover:scale-110"
+                      >
+                        <SocialIcon
+                          network="facebook"
+                          style={{ height: 35, width: 35 }}
+                          fgColor="#fff"
+                          bgColor="#1877f2"
+                        />
+                      </FacebookShareButton>
+                      <EmailShareButton
+                        body={"Check out this blog"}
+                        subject={title}
+                        separator=" : "
+                        url={postUrl}
+                        className="flex items-center overflow-hidden rounded-full !bg-[#B61AC1] hover:scale-110"
+                      >
+                        <SocialIcon
+                          network="email"
+                          style={{ height: 35, width: 35 }}
+                          fgColor="#fff"
+                          bgColor="#B61AC1"
+                        />
+                      </EmailShareButton>
+                      <LinkedinShareButton
+                        summary={"Check out this blog"}
+                        title={title}
+                        source={siteMetadata.siteUrl}
+                        url={postUrl}
+                        className="flex items-center overflow-hidden rounded-full !bg-[#0072b1] hover:scale-110"
+                      >
+                        <SocialIcon
+                          network="linkedin"
+                          style={{ height: 35, width: 35 }}
+                          fgColor="#fff"
+                          bgColor="#0072b1"
+                        />
+                      </LinkedinShareButton>
+                      <RedditShareButton
+                        title={title}
+                        url={postUrl}
+                        className="flex items-center overflow-hidden rounded-full !bg-[#ff4500] hover:scale-110"
+                      >
+                        <SocialIcon
+                          network="reddit"
+                          style={{ height: 35, width: 35 }}
+                          fgColor="#fff"
+                          bgColor="#ff4500"
+                        />
+                      </RedditShareButton>
+                      <WhatsappShareButton
+                        title={title}
+                        separator={" : "}
+                        url={postUrl}
+                        className="flex items-center overflow-hidden rounded-full !bg-[#25D366] hover:scale-110"
+                      >
+                        <SocialIcon
+                          network="whatsapp"
+                          style={{ height: 35, width: 35 }}
+                          fgColor="#fff"
+                          bgColor="#25D366"
+                        />
+                      </WhatsappShareButton>
+                    </>
+                  )}
                 </div>
               </div>
               <Comments frontMatter={frontMatter} />
@@ -242,8 +243,33 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                         <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                           Previous Article
                         </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/blog/${prev.slug}`}>{prev.title}</Link>
+                        <div className="flex items-center">
+                          <Image
+                            src={"/static/images/Blog/apple-privacy.jpg"}
+                            width={70}
+                            height={70}
+                            alt=""
+                            className="h-25 w-25 rounded-md dark:shadow-gray-800"
+                            placeholder="blur"
+                            blurDataURL="/static/images/SVG-placeholder.png"
+                          />
+                          <div className="ml-2 flex flex-col">
+                            <Link
+                              href={`/blog/${prev.slug}`}
+                              className="link-underline mb-2 inline-block text-primary-500 duration-500 ease-in-out hover:text-primary-600 dark:hover:text-primary-400"
+                            >
+                              <p className="w-20 overflow-hidden truncate ">{prev.title}</p>
+                            </Link>
+                            <time
+                              dateTime={prev.date}
+                              className="text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
+                            >
+                              {new Date(prev.date).toLocaleDateString(
+                                siteMetadata.locale,
+                                postDateGeneralTemplate
+                              )}
+                            </time>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -252,8 +278,33 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                         <h2 className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
                           Next Article
                         </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/blog/${next.slug}`}>{next.title}</Link>
+                        <div className="flex items-center">
+                          <Image
+                            src={"/static/images/Blog/apple-privacy.jpg"}
+                            width={70}
+                            height={70}
+                            alt=""
+                            className="h-25 w-25 rounded-md dark:shadow-gray-800"
+                            placeholder="blur"
+                            blurDataURL="/static/images/SVG-placeholder.png"
+                          />
+                          <div className="ml-2 flex flex-col">
+                            <Link
+                              href={`/blog/${next.slug}`}
+                              className="link-underline mb-2 inline-block text-primary-500 duration-500 ease-in-out hover:text-primary-600 dark:hover:text-primary-400"
+                            >
+                              <p className="w-20 overflow-hidden truncate ">{next.title}</p>
+                            </Link>
+                            <time
+                              dateTime={next.date}
+                              className="text-gray-500 hover:text-gray-600 dark:hover:text-gray-400"
+                            >
+                              {new Date(next.date).toLocaleDateString(
+                                siteMetadata.locale,
+                                postDateGeneralTemplate
+                              )}
+                            </time>
+                          </div>
                         </div>
                       </div>
                     )}
