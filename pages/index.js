@@ -7,6 +7,7 @@ import formatDate from "@/lib/utils/formatDate"
 import { RoughNotation } from "react-rough-notation"
 import NewsletterForm from "@/components/NewsletterForm"
 import ViewCounter from "@/components/ViewCounter"
+import Image from "@/components/Image"
 import { useEffect, useState } from "react"
 
 const MAX_DISPLAY = 3
@@ -215,40 +216,57 @@ export default function Home({ posts }) {
             return (
               <div
                 key={slug}
-                className="group flex bg-transparent bg-opacity-20 px-2 transition duration-100 hover:scale-105 hover:rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800"
+                className="group my-6 flex bg-transparent bg-opacity-20 transition duration-100 hover:scale-105 hover:rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 {mounted && (
-                  <li className="py-6">
+                  <li className="">
                     <article>
-                      <div className="space-y-2 bg-transparent bg-opacity-20 p-2 transition duration-200 hover:rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                        <dl>
-                          <dt className="sr-only">Published on</dt>
-                          <dd className="text-sm font-normal leading-6 text-gray-500 dark:text-gray-400">
-                            <time dateTime={date}>{formatDate(date)}</time>
-                            {" • "}
-                            <ViewCounter className="mx-1" slug={slug} />
-                            views
-                          </dd>
-                        </dl>
-                        <div className="space-y-5 xl:col-span-4">
-                          <div className="space-y-1">
-                            <div>
-                              <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                                <Link
-                                  href={`/blog/${slug}`}
-                                  className="text-gray-900 transition duration-500 ease-in-out hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-500"
-                                >
-                                  {title}
-                                </Link>
-                              </h2>
-                            </div>
-                            <div className="flex flex-wrap">
-                              {tags.map((tag) => (
-                                <Tag key={tag} text={tag} />
-                              ))}
-                            </div>
-                            <div className="prose max-w-none pt-5 text-gray-500 dark:text-gray-400">
-                              {summary}
+                      <div className="relative lg:flex">
+                        <div className="relative md:shrink-0">
+                          <Link to="" href={`/blog/${slug}`}>
+                            <Image
+                              src={"/static/images/Blog/apple-privacy.jpg"}
+                              quality={100}
+                              height={500}
+                              width={350}
+                              className="w-25 h-56 overflow-hidden rounded-lg object-cover"
+                              alt={slug}
+                            />
+                          </Link>
+                        </div>
+                        <div className="space-y-2 py-6 lg:ml-4 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
+                          <div className="space-y-5 xl:col-span-4">
+                            <dl>
+                              <dt className="sr-only">Published on</dt>
+                              <dd className="text-sm font-normal leading-6 text-gray-500 dark:text-gray-400">
+                                <time dateTime={date}>{formatDate(date)}</time>
+                                {" • "}
+                                <ViewCounter className="mx-1" slug={slug} />
+                                views
+                              </dd>
+                            </dl>
+                            <div className="space-y-5 xl:col-span-4">
+                              <div className="space-y-1">
+                                <div>
+                                  <h2 className="text-2xl font-bold leading-8 tracking-tight">
+                                    <Link
+                                      href={`/blog/${slug}`}
+                                      className="text-gray-900 transition duration-500 ease-in-out hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-500"
+                                    >
+                                      {title}
+                                    </Link>
+                                  </h2>
+                                </div>
+                                <div className="flex flex-wrap">
+                                  {tags.map((tag) => (
+                                    <Tag key={tag} text={tag} />
+                                  ))}
+                                </div>
+                                <div className="prose relative line-clamp-2 max-w-none truncate pt-5 text-gray-500 dark:text-gray-400">
+                                  {summary}
+                                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-l from-white to-transparent"></div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
