@@ -13,7 +13,7 @@ import {
 import { fetchData } from "@/service/article"
 import { getFileByUrl } from "@/lib/mdx"
 
-const DEFAULT_LAYOUT = "ArticleLayout"
+const DEFAULT_LAYOUT = "BlogLayout"
 
 export async function getStaticPaths() {
   const { data: paths } = await fetchData(ARTICLE_URL_PATH_BY_SLUG)
