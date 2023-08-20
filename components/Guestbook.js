@@ -1,25 +1,26 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { useState, useRef, Suspense } from 'react'
-import { format } from 'date-fns'
-import { signIn, useSession } from 'next-auth/react'
-import useSWR, { useSWRConfig } from 'swr'
+import { useState, useRef, Suspense } from "react"
+import { format } from "date-fns"
+import { signIn, useSession } from "next-auth/react"
+import useSWR, { useSWRConfig } from "swr"
 
-import fetcher from '@/lib/fetcher'
-import SuccessMessage from '@/components/SuccessMessage'
-import ErrorMessage from '@/components/ErrorMessage'
-import LoadingSpinner from '@/components/LoadingSpinner'
-import { FaGoogle, FaGithub } from 'react-icons/fa'
+import fetcher from "@/lib/fetcher"
+import SuccessMessage from "@/components/SuccessMessage"
+import ErrorMessage from "@/components/ErrorMessage"
+import LoadingSpinner from "@/components/LoadingSpinner"
+import { FaGoogle, FaGithub } from "react-icons/fa"
+import { API_URL } from "@/lib/utils/constants"
 
 function GuestbookEntry({ entry, user }) {
   const { mutate } = useSWRConfig()
   const deleteEntry = async (e) => {
     e.preventDefault()
 
-    await fetch(`/api/guestbook/${entry.id}`, {
-      method: 'DELETE',
+    await fetch(`${API_URL}guestbook/${entry.id}`, {
+      method: "DELETE",
     })
 
-    mutate('/api/guestbook')
+    mutate(`${API_URL}guestbook`)
   }
 
   return (
@@ -58,36 +59,39 @@ export default function Guestbook({ fallbackData }) {
   const { mutate } = useSWRConfig()
   const [form, setForm] = useState(false)
   const inputEl = useRef(null)
-  const { data: entries } = useSWR('/api/guestbook', fetcher, {
+  const { data: entries } = useSWR(`${API_URL}guestbook`, fetcher, {
     fallbackData,
   })
 
   const leaveEntry = async (e) => {
     e.preventDefault()
-    setForm({ state: 'loading' })
-    const res = await fetch('/api/guestbook', {
+    const { email, name } = session.user
+    setForm({ state: "loading" })
+    const res = await fetch(`${API_URL}guestbook`, {
       body: JSON.stringify({
         body: inputEl.current.value,
+        email: email,
+        created_by: name,
       }),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      method: 'POST',
+      method: "POST",
     })
 
     const { error } = await res.json()
     if (error) {
       setForm({
-        state: 'error',
+        state: "error",
         message: error,
       })
       return
     }
 
-    inputEl.current.value = ''
-    mutate('/api/guestbook')
+    inputEl.current.value = ""
+    mutate(`${API_URL}guestbook`)
     setForm({
-      state: 'success',
+      state: "success",
       message: `Hooray! Thanks for signing my Guestbook.`,
     })
   }
@@ -104,10 +108,10 @@ export default function Guestbook({ fallbackData }) {
           <div className="flex flex-row">
             <a
               href="/api/auth/signin/github"
-              className="my-4 mx-2 flex h-20 w-1/2 items-center justify-center rounded bg-neutral-100 font-light text-gray-900 ring-gray-300 transition-all hover:ring-2 dark:bg-zinc-800 dark:text-gray-100"
+              className="mx-2 my-4 flex h-20 w-1/2 items-center justify-center rounded bg-neutral-100 font-light text-gray-900 ring-gray-300 transition-all hover:ring-2 dark:bg-zinc-800 dark:text-gray-100"
               onClick={(e) => {
                 e.preventDefault()
-                signIn('github')
+                signIn("github")
                 setIsLoadingGithub(true)
               }}
             >
@@ -124,10 +128,10 @@ export default function Guestbook({ fallbackData }) {
             </a>
             <a
               href="/api/auth/signin/google"
-              className="my-4 mx-2 flex h-20 w-1/2 items-center justify-center rounded bg-neutral-100 font-light text-gray-900 ring-gray-300 transition-all hover:ring-2 dark:bg-zinc-800 dark:text-gray-100"
+              className="mx-2 my-4 flex h-20 w-1/2 items-center justify-center rounded bg-neutral-100 font-light text-gray-900 ring-gray-300 transition-all hover:ring-2 dark:bg-zinc-800 dark:text-gray-100"
               onClick={(e) => {
                 e.preventDefault()
-                signIn('google')
+                signIn("google")
                 setIsLoadingGoogle(true)
               }}
             >
@@ -163,14 +167,14 @@ export default function Guestbook({ fallbackData }) {
                 className="grid w-full place-items-center rounded bg-neutral-100 px-3 py-1 font-medium ring-gray-300 transition-all hover:ring-2 dark:bg-gray-600"
                 type="submit"
               >
-                {form.state === 'loading' ? <LoadingSpinner /> : 'Sign'}
+                {form.state === "loading" ? <LoadingSpinner /> : "Sign"}
               </button>
             </form>
           </div>
         )}
-        {form.state === 'error' ? (
+        {form.state === "error" ? (
           <ErrorMessage>{form.message}</ErrorMessage>
-        ) : form.state === 'success' ? (
+        ) : form.state === "success" ? (
           <SuccessMessage>{form.message}</SuccessMessage>
         ) : (
           <p className="text-xs text-gray-800 dark:text-gray-500"></p>
