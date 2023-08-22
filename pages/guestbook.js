@@ -1,7 +1,8 @@
-import prisma from 'lib/prisma'
-import Guestbook from '@/components/Guestbook'
-import siteMetadata from '@/data/siteMetadata'
-import { PageSEO } from '@/components/SEO'
+import Guestbook from "@/components/Guestbook"
+import siteMetadata from "@/data/siteMetadata"
+import { PageSEO } from "@/components/SEO"
+import { fetchData } from "@/service/article"
+import { GUESTBOOK_URL } from "@/lib/utils/constants"
 
 export default function GuestbookPage({ fallbackData }) {
   return (
@@ -19,7 +20,7 @@ export default function GuestbookPage({ fallbackData }) {
         Leave a comment below. It could be anything – appreciation, information, wisdom, or even
         humor. Surprise me!
       </p> */}
-        <div className="space-y-2 pt-6 pb-6 md:space-y-5">
+        <div className="space-y-2 pb-6 pt-6 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
             Guestbook
           </h1>
@@ -34,22 +35,11 @@ export default function GuestbookPage({ fallbackData }) {
   )
 }
 export async function getStaticProps() {
-  const entries = await prisma.guestbook.findMany({
-    orderBy: {
-      updated_at: 'desc',
-    },
-  })
-
-  const fallbackData = entries.map((entry) => ({
-    id: entry.id.toString(),
-    body: entry.body,
-    created_by: entry.created_by.toString(),
-    updated_at: entry.updated_at.toString(),
-  }))
+  const { data, pagination, meta } = await fetchData(GUESTBOOK_URL)
 
   return {
     props: {
-      fallbackData,
+      data,
     },
     revalidate: 60,
   }

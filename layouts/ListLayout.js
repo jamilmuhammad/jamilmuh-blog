@@ -14,7 +14,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
   }, [])
 
   const filteredBlogPosts = posts.filter((frontMatter) => {
-    const searchContent = frontMatter.title + frontMatter.summary + frontMatter.tags.join(" ")
+    const searchContent = frontMatter.title + frontMatter.summary
     return searchContent.toLowerCase().includes(searchValue.toLowerCase())
   })
 
@@ -31,10 +31,10 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
           </h1>
           <div className="relative max-w-lg">
             <input
-              aria-label="Search articles"
+              aria-label="Search blogs"
               type="text"
               onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search articles"
+              placeholder="Search blogs"
               className="block w-full rounded-md border border-gray-400 bg-white px-4 py-2 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-900 dark:bg-gray-800 dark:text-gray-100"
             />
             <svg
@@ -56,7 +56,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
         <ul>
           {!filteredBlogPosts.length && "No posts found."}
           {displayPosts.map((frontMatter) => {
-            const { slug, date, title, summary, tags } = frontMatter
+            const { slug, date, title, summary, views, tags } = frontMatter
             return (
               <div
                 key={slug}
@@ -69,7 +69,9 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                         <dd className="text-sm font-normal leading-6 text-gray-500 dark:text-gray-400">
                           <time dateTime={date}>{formatDate(date)}</time>
                           {" • "}
-                          <ViewCounter className="mx-1" slug={slug} />
+                          <span className="mx-1">{`${
+                            views > 0 ? views.toLocaleString() : "–––"
+                          }`}</span>
                           views
                         </dd>
                       </dl>
@@ -87,7 +89,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                           </div>
                           <div className="flex flex-wrap">
                             {tags.map((tag) => (
-                              <Tag key={tag} text={tag} />
+                              <Tag key={tag.name} text={tag.name} />
                             ))}
                           </div>
                           <div className="prose max-w-none pt-5 text-gray-500 dark:text-gray-400">
@@ -103,8 +105,8 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
           })}
         </ul>
       </div>
-      {pagination && pagination.totalPages > 1 && !searchValue && (
-        <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
+      {pagination && pagination.total_page > 1 && !searchValue && (
+        <Pagination currentPage={pagination.current_page} totalPages={pagination.total_page} />
       )}
     </>
   )

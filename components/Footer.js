@@ -1,6 +1,6 @@
-import { currentDayName } from '@/lib/utils/dateUtils'
-import Link from './Link'
-import NowPlayingFooter from './NowPlayingFooter'
+import { currentDayName } from "@/lib/utils/dateUtils"
+import Link from "./Link"
+import NowPlayingFooter from "./NowPlayingFooter"
 
 export default function Footer() {
   return (
@@ -17,7 +17,7 @@ export default function Footer() {
           </div>
           {`•`}
           <div className="mx-1">
-            <Link href="https://qod.shakiltech.com/" className="link-underline">
+            <Link href="/now" className="link-underline">
               Have a good {currentDayName()}!
             </Link>
           </div>

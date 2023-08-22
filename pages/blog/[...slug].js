@@ -2,48 +2,54 @@ import fs from "fs"
 import PageTitle from "@/components/PageTitle"
 import generateRss from "@/lib/generate-rss"
 import { MDXLayoutRenderer } from "@/components/MDXComponents"
-import { formatSlug, getAllFilesFrontMatter, getFileBySlug, getFiles } from "@/lib/mdx"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
+import {
+  API_URL,
+  ARTICLE_DETAIL_BY_SLUG_URL,
+  ARTICLE_URL,
+  ARTICLE_URL_PATH_BY_SLUG,
+} from "@/lib/utils/constants"
+import { fetchData } from "@/service/article"
+import { getFileByUrl } from "@/lib/mdx"
 
-const DEFAULT_LAYOUT = "PostLayout"
+const DEFAULT_LAYOUT = "BlogLayout"
 
 export async function getStaticPaths() {
-  const posts = getFiles("blog")
+  const { data: paths } = await fetchData(ARTICLE_URL_PATH_BY_SLUG)
+
   return {
-    paths: posts.map((p) => ({
+    paths: paths.map((p) => ({
       params: {
-        slug: formatSlug(p).split("/"),
+        slug: p.path.split("/"),
       },
     })),
     fallback: false,
   }
 }
 
-export async function getStaticProps({ params }) {
-  const allPosts = await getAllFilesFrontMatter("blog")
-  const postIndex = allPosts.findIndex((post) => formatSlug(post.slug) === params.slug.join("/"))
-  const next = allPosts[postIndex === allPosts.length - 1 ? 0 : postIndex + 1] || null
-  const prev = allPosts[(postIndex === 0 ? allPosts.length : postIndex) - 1] || null
-  const post = await getFileBySlug("blog", params.slug.join("/"))
-  const authorList = post.frontMatter.authors || ["default"]
-  const authorPromise = authorList.map(async (author) => {
-    const authorResults = await getFileBySlug("authors", [author])
-    return authorResults.frontMatter
-  })
-  const authorDetails = await Promise.all(authorPromise)
+export async function getStaticProps({ params: { slug } }) {
+  const data = await fetchData(ARTICLE_DETAIL_BY_SLUG_URL(slug.toString()))
 
-  // rss
-  if (allPosts.length > 0) {
-    const rss = generateRss(allPosts)
+  let activityDetails = false
+
+  if (data?.data?.markdown) activityDetails = await getFileByUrl(data?.data)
+
+  const authorDetails = data?.data?.user
+
+  const { data: posts } = await fetchData(ARTICLE_URL(slug.toString()))
+
+  // //   // rss
+  if (posts.length > 0) {
+    const rss = generateRss(posts)
     fs.writeFileSync("./public/feed.xml", rss)
   }
 
-  return { props: { post, authorDetails, prev, next } }
+  return { props: { data, activityDetails, authorDetails, posts } }
 }
 
-export default function Blog({ post, authorDetails, prev, next }) {
-  const { mdxSource, toc, frontMatter } = post
+export default function Blog({ data, activityDetails, authorDetails, posts }) {
+  const { mdxSource, toc, frontMatter } = activityDetails
 
   const router = useRouter()
 
@@ -65,15 +71,14 @@ export default function Blog({ post, authorDetails, prev, next }) {
 
   return (
     <>
-      {frontMatter.draft !== true ? (
+      {authorDetails || data?.status != 200 ? (
         <MDXLayoutRenderer
           layout={frontMatter.layout || DEFAULT_LAYOUT}
           toc={toc}
           mdxSource={mdxSource}
           frontMatter={frontMatter}
           authorDetails={authorDetails}
-          prev={prev}
-          next={next}
+          posts={posts}
         />
       ) : (
         <div className="mt-24 text-center">
