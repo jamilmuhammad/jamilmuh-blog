@@ -30,7 +30,7 @@ function GuestbookEntry({ entry, user }) {
         <div className="line-clamp-1 text-gray-600 text-opacity-80 dark:text-white">
           <div className="mb-2 flex ">
             <p className="text-sm text-gray-500">
-              {entry.created_by} • {format(new Date(entry.updated_at), "d MMM yyyy 'at' h:mm bb")}
+              {entry.created_by} • {format(new Date(entry.updatedAt), "d MMM yyyy 'at' h:mm bb")}
             </p>
           </div>
           <div className="flex items-center">
@@ -59,9 +59,11 @@ export default function Guestbook({ fallbackData }) {
   const { mutate } = useSWRConfig()
   const [form, setForm] = useState(false)
   const inputEl = useRef(null)
-  const { data: entries } = useSWR(`${API_URL}guestbook`, fetcher, {
+  const res = useSWR(`${API_URL}guestbook`, fetcher, {
     fallbackData,
   })
+
+  const entries = res?.data?.data
 
   const leaveEntry = async (e) => {
     e.preventDefault()
@@ -79,11 +81,11 @@ export default function Guestbook({ fallbackData }) {
       method: "POST",
     })
 
-    const { error } = await res.json()
+    const { error, message } = await res.json()
     if (error) {
       setForm({
-        state: "error",
-        message: error,
+        state: error,
+        message: message,
       })
       return
     }
