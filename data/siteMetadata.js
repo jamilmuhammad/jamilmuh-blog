@@ -12,6 +12,7 @@ const siteMetadata = {
   siteRepo: "https://github.com/jamilmuhammad/jamilmuhammad-blog",
   siteLogo: "/static/images/logo_purple.png",
   image: "/static/images/avatar.jpg",
+  imageBlogDefault: "https://i.pinimg.com/564x/76/80/4e/76804ed4e8c23744eb0b9f34aa60cd2b.jpg",
   socialBanner: "/static/images/twitter-card.png",
   email: "jamielmuhammadd@gmail.com",
   github: "https://github.com/jamilmuhammad",
