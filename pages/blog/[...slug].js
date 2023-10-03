@@ -71,7 +71,7 @@ export default function Blog({ data, activityDetails, authorDetails, posts }) {
 
   return (
     <>
-      {authorDetails || data?.status != 200 ? (
+      {authorDetails || data?.status == 200 ? (
         <MDXLayoutRenderer
           layout={frontMatter.layout || DEFAULT_LAYOUT}
           toc={toc}
