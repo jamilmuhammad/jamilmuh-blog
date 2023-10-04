@@ -2,6 +2,7 @@ import { PageSEO, TagSEO } from "@/components/SEO"
 import siteMetadata from "@/data/siteMetadata"
 import ListLayout from "@/layouts/ListLayout"
 import generateRss from "@/lib/generate-rss"
+import { getAllArticleByTag } from "@/lib/api"
 import { ARTICLE_URL, TAG_URL_PATH } from "@/lib/utils/constants"
 import { fetchData } from "@/service/article"
 import fs from "fs"
@@ -20,18 +21,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { tag } }) {
-  const { data, pagination, meta, status } = await fetchData(ARTICLE_URL("", tag))
+  const res = await getAllArticleByTag(tag)
 
   // //   // rss
-  if (data.length > 0) {
-    const rss = generateRss(data)
+  if (res?.data.length > 0) {
+    const rss = generateRss(res?.data)
     fs.writeFileSync("./public/feed.xml", rss)
   }
 
   return {
     props: {
-      data,
-      pagination,
+      data: res?.data,
+      pagination: res?.pagination,
       tag,
     },
     revalidate: 43200,

@@ -3,6 +3,7 @@ import siteMetadata from "@/data/siteMetadata"
 import ListLayout from "@/layouts/ListLayout"
 import { fetchData } from "@/service/article"
 import { ARTICLE_URL, ARTICLE_URL_PAGINATION } from "@/lib/utils/constants"
+import { getAllArticleByPage } from "@/lib/api"
 
 export async function getStaticPaths() {
   const data = await fetchData(ARTICLE_URL())
@@ -17,18 +18,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { page } }) {
-  const pageNumber = parseInt(page)
-
-  const { data, pagination, meta, status } = await fetchData(ARTICLE_URL_PAGINATION(pageNumber))
-
-  if (status !== 200) {
-    throw new Error(`Failed to fetch posts, received status ${status}`)
-  }
+  const res = await getAllArticleByPage(page)
 
   return {
     props: {
-      data,
-      pagination,
+      data: res?.data,
+      pagination: res?.pagination,
     },
     revalidate: 43200,
   }
