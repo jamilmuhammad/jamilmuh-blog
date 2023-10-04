@@ -20,6 +20,15 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { page } }) {
   const res = await getAllArticleByPage(page)
 
+  if (!res?.data) {
+    return {
+      redirect: {
+        destination: "/blog",
+        permanent: false,
+      },
+    }
+  }
+
   return {
     props: {
       data: res?.data,

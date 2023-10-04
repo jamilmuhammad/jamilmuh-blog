@@ -23,6 +23,14 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { tag } }) {
   const res = await getAllArticleByTag(tag)
 
+  if (!res?.data) {
+    return {
+      redirect: {
+        destination: "/tags",
+        permanent: false,
+      },
+    }
+  }
   // //   // rss
   if (res?.data.length > 0) {
     const rss = generateRss(res?.data)
