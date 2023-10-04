@@ -2,12 +2,9 @@ import { TagSEO } from "@/components/SEO"
 import siteMetadata from "@/data/siteMetadata"
 import ListLayout from "@/layouts/ListLayout"
 import generateRss from "@/lib/generate-rss"
-import { ARTICLE_URL, TAG_URL, TAG_URL_PATH } from "@/lib/utils/constants"
+import { ARTICLE_URL, TAG_URL_PATH } from "@/lib/utils/constants"
 import { fetchData } from "@/service/article"
 import fs from "fs"
-import path from "path"
-
-const root = process.cwd()
 
 export async function getStaticPaths() {
   const { data: paths } = await fetchData(TAG_URL_PATH)
@@ -27,10 +24,8 @@ export async function getStaticProps({ params: { tag } }) {
 
   // //   // rss
   if (data.length > 0) {
-    const rss = generateRss(data, `tags/${tag}/feed.xml`)
-    const rssPath = path.join(root, "public", "tags", tag)
-    fs.mkdirSync(rssPath, { recursive: true })
-    fs.writeFileSync(path.join(rssPath, "feed.xml"), rss)
+    const rss = generateRss(data)
+    fs.writeFileSync("./public/feed.xml", rss)
   }
 
   return {
