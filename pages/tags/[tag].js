@@ -1,4 +1,4 @@
-import { TagSEO } from "@/components/SEO"
+import { PageSEO, TagSEO } from "@/components/SEO"
 import siteMetadata from "@/data/siteMetadata"
 import ListLayout from "@/layouts/ListLayout"
 import generateRss from "@/lib/generate-rss"
@@ -41,7 +41,7 @@ export async function getStaticProps({ params: { tag } }) {
 export default function Tag({ data, pagination, tag }) {
   return (
     <>
-      <TagSEO
+      <PageSEO
         title={`${tag} - ${siteMetadata.author}`}
         description={`${tag} tags - ${siteMetadata.author}`}
       />
