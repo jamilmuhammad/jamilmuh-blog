@@ -11,6 +11,8 @@ import {
   ArchiveIcon,
   EnterIcon,
   HamburgerMenuIcon,
+  FrameIcon,
+  ChatBubbleIcon,
 } from "@radix-ui/react-icons"
 import useSound from "use-sound"
 
@@ -102,7 +104,28 @@ export default function DropMenu() {
                   }
                 >
                   <div className="flex flex-row">
-                    <Pencil1Icon className="mr-4 mt-0.5" /> Blog
+                    <Suspense>
+                      <Pencil1Icon className="mr-4 mt-0.5" /> Blog
+                    </Suspense>
+                  </div>
+                </Link>
+              )}
+            </Menu.Item>
+            <Menu.Item ref={ref}>
+              {({ active }) => (
+                <Link
+                  href="/tags"
+                  className={
+                    (active
+                      ? "bg-gray-200 text-gray-700 dark:bg-zinc-700 dark:text-gray-300"
+                      : "bg-white text-zinc-700 hover:bg-gray-300 dark:bg-zinc-800 dark:text-gray-200 dark:hover:bg-zinc-700",
+                    "block px-4 py-2 text-sm")
+                  }
+                >
+                  <div className="flex flex-row">
+                    <Suspense>
+                      <FrameIcon className="mr-4 mt-0.5" /> Tags
+                    </Suspense>
                   </div>
                 </Link>
               )}
@@ -121,6 +144,25 @@ export default function DropMenu() {
                   <div className="flex flex-row">
                     <Suspense>
                       <ArchiveIcon className="mr-4 mt-0.5" /> Projects
+                    </Suspense>
+                  </div>
+                </Link>
+              )}
+            </Menu.Item>
+            <Menu.Item ref={ref}>
+              {({ active }) => (
+                <Link
+                  href="/guestbook"
+                  className={
+                    (active
+                      ? "bg-gray-200 text-gray-700 dark:bg-zinc-700 dark:text-gray-300"
+                      : "bg-white text-zinc-700 hover:bg-gray-300 dark:bg-zinc-800 dark:text-gray-200 dark:hover:bg-zinc-700",
+                    "block px-4 py-2 text-sm")
+                  }
+                >
+                  <div className="flex flex-row">
+                    <Suspense>
+                      <ChatBubbleIcon className="mr-4 mt-0.5" /> Guestbook
                     </Suspense>
                   </div>
                 </Link>
