@@ -20,29 +20,23 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { page } }) {
   const res = await getAllArticleByPage(page)
 
-  if (!res?.data) {
-    return {
-      redirect: {
-        destination: "/blog",
-        permanent: false,
-      },
-    }
+  const data = {
+    data: res?.data,
+    pagination: res?.pagination,
   }
 
   return {
     props: {
-      data: res?.data,
-      pagination: res?.pagination,
+      data,
     },
-    revalidate: 43200,
   }
 }
 
-export default function PostPage({ data, pagination }) {
+export default function PostPage({ data }) {
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
-      <ListLayout posts={data} pagination={pagination} title="All Posts" />
+      <ListLayout posts={data.data} pagination={data.pagination} title="All Posts" />
     </>
   )
 }
