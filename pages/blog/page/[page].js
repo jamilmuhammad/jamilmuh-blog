@@ -19,36 +19,43 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { page } }) {
-  const res = await fetchData(ARTICLE_URL_PAGINATION(page))
+  try {
+    const response = await fetch(`https://jamilmuhammad.my.id/api/v1/article?page=${page}`)
 
-  if (!res) {
+    if (!response.ok) {
+      throw new Error(`Failed to retrieve data / Error: ${response.status}`)
+    }
+
+    const data = await response.json()
+
+    const posts = data?.data ? data.data : []
+
+    const pagination = data?.pagination ? data.pagination : {}
+
     return {
       props: {
-        error: true,
+        posts,
+        pagination,
       },
     }
-  }
-
-  const data = res?.data || []
-
-  const pagination = res?.pagination || {}
-
-  return {
-    props: {
-      data,
-      pagination,
-      error: false,
-    },
+  } catch (error) {
+    console.error("Error fetching data:", error)
+    return {
+      props: {
+        posts: null,
+        pagination: null,
+      }, // You can handle errors gracefully
+    }
   }
 }
 
-export default function PostPage({ data, error }) {
+export default function PostPage({ posts, pagination }) {
   return (
     <>
-      {!error && data?.data.length > 0 ? (
+      {posts != null && posts.length > 0 ? (
         <>
           <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
-          <ListLayout posts={data.data} pagination={data.pagination} title="All Posts" />
+          <ListLayout posts={posts} pagination={pagination} title="All Posts" />
         </>
       ) : (
         <div className="mt-24 text-center">

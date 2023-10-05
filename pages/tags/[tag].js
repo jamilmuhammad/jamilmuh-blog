@@ -20,40 +20,48 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { tag } }) {
-  const res = await fetchData(ARTICLE_URL("", tag))
+  try {
+    const response = await fetch(`https://jamilmuhammad.my.id/api/v1/article?ex_tag=${tag}`)
 
-  if (!res) {
+    if (!response.ok) {
+      throw new Error(`Failed to retrieve data / Error: ${response.status}`)
+    }
+
+    const data = await response.json()
+
+    const posts = data?.data ? data.data : []
+
+    const pagination = data?.pagination ? data.pagination : {}
+
     return {
       props: {
-        error: true,
+        posts,
+        pagination,
+        tag,
       },
     }
-  }
-
-  const data = res?.data || []
-
-  const pagination = res?.pagination || {}
-
-  return {
-    props: {
-      data,
-      pagination,
-      tag,
-      error: false,
-    },
+  } catch (error) {
+    console.error("Error fetching data:", error)
+    return {
+      props: {
+        posts: null,
+        pagination: null,
+        tag: null,
+      }, // You can handle errors gracefully
+    }
   }
 }
 
-export default function Tag({ data, error }) {
+export default function Tag({ posts, pagination, tag }) {
   return (
     <>
-      {!error && data?.data.length > 0 ? (
+      {posts != null || posts.length > 0 ? (
         <>
           <PageSEO
-            title={`${data.tag} - ${siteMetadata.author}`}
-            description={`${data.tag} tags - ${siteMetadata.author}`}
+            title={`${tag} - ${siteMetadata.author}`}
+            description={`${tag} tags - ${siteMetadata.author}`}
           />
-          <ListLayout posts={data.data} pagination={data.pagination} title={data.tag} />
+          <ListLayout posts={posts} pagination={pagination} title={tag} />
         </>
       ) : (
         <div className="mt-24 text-center">
