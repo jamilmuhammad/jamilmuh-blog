@@ -21,8 +21,8 @@ export async function getStaticProps({ params: { page } }) {
   const res = await getAllArticleByPage(page)
 
   const data = {
-    data: res?.data,
-    pagination: res?.pagination,
+    data: res?.data || null,
+    pagination: res?.pagination || null,
   }
 
   return {
