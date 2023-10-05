@@ -13,13 +13,10 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
     setMounted(true)
   }, [])
 
-  const filteredBlogPosts =
-    posts && posts != null
-      ? posts?.filter((frontMatter) => {
-          const searchContent = frontMatter.title + frontMatter.summary
-          return searchContent.toLowerCase().includes(searchValue.toLowerCase())
-        })
-      : []
+  const filteredBlogPosts = posts?.filter((frontMatter) => {
+    const searchContent = frontMatter.title + frontMatter.summary
+    return searchContent.toLowerCase().includes(searchValue.toLowerCase())
+  })
 
   // If initialDisplayPosts exist, display it if no searchValue is specified
   const displayPosts =

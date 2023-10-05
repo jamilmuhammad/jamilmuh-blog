@@ -1,3 +1,4 @@
+import PageTitle from "@/components/PageTitle"
 import { PageSEO, TagSEO } from "@/components/SEO"
 import siteMetadata from "@/data/siteMetadata"
 import ListLayout from "@/layouts/ListLayout"
@@ -19,11 +20,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { tag } }) {
-  const res = await getAllArticleByTag(tag)
+  const res = await fetchData(ARTICLE_URL("", tag))
 
   const data = {
-    data: res?.data || null,
-    pagination: res?.pagination || null,
+    data: res?.data,
+    pagination: res?.pagination,
     tag,
   }
 
@@ -37,11 +38,24 @@ export async function getStaticProps({ params: { tag } }) {
 export default function Tag({ data }) {
   return (
     <>
-      <PageSEO
-        title={`${data.tag} - ${siteMetadata.author}`}
-        description={`${data.tag} tags - ${siteMetadata.author}`}
-      />
-      <ListLayout posts={data.data} pagination={data.pagination} title={data.tag} />
+      {data && data?.data.length > 0 ? (
+        <>
+          <PageSEO
+            title={`${data.tag} - ${siteMetadata.author}`}
+            description={`${data.tag} tags - ${siteMetadata.author}`}
+          />
+          <ListLayout posts={data.data} pagination={data.pagination} title={data.tag} />
+        </>
+      ) : (
+        <div className="mt-24 text-center">
+          <PageTitle>
+            Under Construction{" "}
+            <span role="img" aria-label="roadwork sign">
+              🚧
+            </span>
+          </PageTitle>
+        </div>
+      )}
     </>
   )
 }
