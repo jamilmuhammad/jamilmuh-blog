@@ -30,8 +30,8 @@ export async function getStaticProps({ params: { page } }) {
   }
 
   const data = {
-    data: res?.data,
-    pagination: res?.pagination,
+    data: res?.data || [],
+    pagination: res?.pagination || {},
   }
 
   return {

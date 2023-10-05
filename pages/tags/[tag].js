@@ -31,9 +31,9 @@ export async function getStaticProps({ params: { tag } }) {
   }
 
   const data = {
-    data: res?.data,
-    pagination: res?.pagination,
-    tag,
+    data: res?.data || [],
+    pagination: res?.pagination || {},
+    tag: tag || null,
   }
 
   return {
