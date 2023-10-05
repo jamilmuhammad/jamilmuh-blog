@@ -29,14 +29,14 @@ export async function getStaticProps({ params: { page } }) {
     }
   }
 
-  const data = {
-    data: res?.data || [],
-    pagination: res?.pagination || {},
-  }
+  const data = res?.data || []
+
+  const pagination = res?.pagination || {}
 
   return {
     props: {
       data,
+      pagination,
       error: false,
     },
   }

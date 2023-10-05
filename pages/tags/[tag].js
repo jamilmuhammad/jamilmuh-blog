@@ -30,15 +30,15 @@ export async function getStaticProps({ params: { tag } }) {
     }
   }
 
-  const data = {
-    data: res?.data || [],
-    pagination: res?.pagination || {},
-    tag: tag || null,
-  }
+  const data = res?.data || []
+
+  const pagination = res?.pagination || {}
 
   return {
     props: {
       data,
+      pagination,
+      tag,
       error: false,
     },
   }
