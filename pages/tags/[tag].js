@@ -22,6 +22,14 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params: { tag } }) {
   const res = await fetchData(ARTICLE_URL("", tag))
 
+  if (!res) {
+    return {
+      props: {
+        error: true,
+      },
+    }
+  }
+
   const data = {
     data: res?.data,
     pagination: res?.pagination,
@@ -31,14 +39,15 @@ export async function getStaticProps({ params: { tag } }) {
   return {
     props: {
       data,
+      error: false,
     },
   }
 }
 
-export default function Tag({ data }) {
+export default function Tag({ data, error }) {
   return (
     <>
-      {data && data?.data.length > 0 ? (
+      {!error && data?.data.length > 0 ? (
         <>
           <PageSEO
             title={`${data.tag} - ${siteMetadata.author}`}

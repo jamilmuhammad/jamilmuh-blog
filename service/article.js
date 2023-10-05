@@ -12,7 +12,13 @@ export const fetchData = async (url) => {
     },
     method: "GET",
   })
+
+  if (!response.ok) {
+    throw new Error(`Failed to retrieve data / Error: ${response.status}`)
+  }
+
   const data = await response.json()
+
   return {
     ...data,
     status: response.status,
