@@ -52,7 +52,7 @@ export async function getStaticProps({ params: { page } }) {
 export default function PostPage({ posts, pagination }) {
   return (
     <>
-      {posts != null && posts.length > 0 ? (
+      {posts != null ? (
         <>
           <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
           <ListLayout posts={posts} pagination={pagination} title="All Posts" />

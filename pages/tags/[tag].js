@@ -55,7 +55,7 @@ export async function getStaticProps({ params: { tag } }) {
 export default function Tag({ posts, pagination, tag }) {
   return (
     <>
-      {posts != null || posts.length > 0 ? (
+      {posts != null ? (
         <>
           <PageSEO
             title={`${tag} - ${siteMetadata.author}`}
