@@ -1,8 +1,3 @@
-const removeImports = require("next-remove-imports")
-
-const withTM = require("next-transpile-modules")(["@uiw/react-md-editor"])
-// const removeImports = require("next-remove-imports");
-
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 })
@@ -75,9 +70,6 @@ module.exports = withBundleAnalyzer({
       "res.craft.do",
       "res.cloudinary.com", // Twitter Profile Picture
       "vercel.app", //Vercel App
-      "i.pinimg.com", // Pinterest
-      "cdnjs.cloudflare.com", // CDN Cloud Flare
-      "fonts.googleapis.com", // Fonts Google
     ],
   },
   rewrites: async () => [
