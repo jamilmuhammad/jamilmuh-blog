@@ -1,58 +1,31 @@
 import PageTitle from "@/components/PageTitle"
-import { PageSEO, TagSEO } from "@/components/SEO"
+import { PageSEO } from "@/components/SEO"
 import siteMetadata from "@/data/siteMetadata"
 import ListLayout from "@/layouts/ListLayout"
-import { getAllArticleByTag } from "@/lib/api"
-import { ARTICLE_URL, TAG_URL_PATH } from "@/lib/utils/constants"
-import { fetchData } from "@/service/article"
+import Fetcher from "@/lib/fetcher"
+import { API_URL } from "@/lib/utils/constants"
+import { useRouter } from "next/router"
+import useSWR from "swr"
 
-export async function getStaticPaths() {
-  const { data: paths } = await fetchData(TAG_URL_PATH)
+export default function Tag() {
+  const router = useRouter()
 
-  return {
-    paths: paths.map((p) => ({
-      params: {
-        tag: p.path,
-      },
-    })),
-    fallback: false,
+  const { tag } = router.query
+
+  const { data: responseDataArticle, error: responseErrorArticle } = useSWR(
+    `${API_URL}article?ex_tag=${tag}`,
+    Fetcher
+  )
+  const { data: dataArticle } = responseDataArticle || {}
+  const { response: errorArticle } = responseErrorArticle || {}
+
+  if (errorArticle) {
+    throw new Error(`Failed to retrieve data / Error: ${errorArticle?.data?.message}`)
   }
-}
 
-export async function getStaticProps({ params: { tag } }) {
-  try {
-    const response = await fetch(`https://jamilmuhammad.my.id/api/v1/article?ex_tag=${tag}`)
+  const posts = dataArticle ? dataArticle : []
 
-    if (!response.ok) {
-      throw new Error(`Failed to retrieve data / Error: ${response.status}`)
-    }
-
-    const data = await response.json()
-
-    const posts = data?.data ? data.data : []
-
-    const pagination = data?.pagination ? data.pagination : {}
-
-    return {
-      props: {
-        posts,
-        pagination,
-        tag,
-      },
-    }
-  } catch (error) {
-    console.error("Error fetching data:", error)
-    return {
-      props: {
-        posts: null,
-        pagination: null,
-        tag: null,
-      }, // You can handle errors gracefully
-    }
-  }
-}
-
-export default function Tag({ posts, pagination, tag }) {
+  const pagination = responseDataArticle?.pagination ? dataArticle.pagination : {}
   return (
     <>
       {posts != null ? (
