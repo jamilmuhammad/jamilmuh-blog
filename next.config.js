@@ -6,10 +6,10 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 const ContentSecurityPolicy = `
   default-src 'self';
   script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app analytics.umami.is analytics-jamilmuhammadblog.vercel.app;
-  style-src 'self' 'unsafe-inline'
-  font-src 'self'
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+  font-src 'self' https://fonts.gstatic.com;
   img-src * blob: data:;
-  media-src *.w3.org *.res.cloudinary.com;
+  media-src 'none';
   connect-src *;
   frame-src giscus.app
 `
