@@ -9,6 +9,8 @@ import ViewCounter from "@/components/ViewCounter"
 import Image from "@/components/Image"
 import { fetchData } from "service/article"
 import { ARTICLE_URL } from "@/lib/utils/constants"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
 
 const MAX_DISPLAY = 10
 
@@ -21,6 +23,14 @@ export async function getStaticProps() {
 }
 
 export default function Home({ posts }) {
+  const router = useRouter()
+
+  useEffect(() => {
+    if (router.isReady) {
+      router.push("/", undefined, { shallow: true })
+    }
+  }, [router.isReady])
+
   return (
     <>
       <PageSEO title={siteMetadata.title} description={siteMetadata.description} />
