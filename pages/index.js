@@ -246,7 +246,7 @@ export default function Home({ posts }) {
                                 <h2 className="text-2xl font-bold leading-8 tracking-tight">
                                   <Link
                                     href={`/blog/${slug}`}
-                                    className="text-gray-900 transition duration-500 ease-in-out hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-500"
+                                    className="line-clamp-1 max-w-none text-ellipsis text-gray-900 transition duration-500 ease-in-out hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-500"
                                   >
                                     {title}
                                   </Link>
@@ -257,9 +257,9 @@ export default function Home({ posts }) {
                                   <Tag key={tag.name} text={tag.name} />
                                 ))}
                               </div>
-                              <div className="prose relative line-clamp-1 line-clamp-2 block max-w-none truncate text-ellipsis pt-5 text-gray-500 dark:text-gray-400">
+                              <span className="line-clamp-1 max-w-none text-ellipsis pt-5 text-gray-500 dark:text-gray-400">
                                 {summary}
-                              </div>
+                              </span>
                             </div>
                           </div>
                         </div>
