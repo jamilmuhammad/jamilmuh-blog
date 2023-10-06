@@ -1,3 +1,8 @@
+const removeImports = require("next-remove-imports")
+
+const withTM = require("next-transpile-modules")(["@uiw/react-md-editor"])
+// const removeImports = require("next-remove-imports");
+
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 })
@@ -5,13 +10,13 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' giscus.app;
-  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; 
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://giscus.app;
+  style-src 'self' 'unsafe-inline' https://giscus.app https://fonts.googleapis.com; 
   font-src 'self' https://fonts.gstatic.com;
   img-src * blob: data:;
   media-src 'none';
   connect-src *;
-  frame-src giscus.app
+  frame-src https://giscus.app
 `
 
 const securityHeaders = [
@@ -70,6 +75,9 @@ module.exports = withBundleAnalyzer({
       "res.craft.do",
       "res.cloudinary.com", // Twitter Profile Picture
       "vercel.app", //Vercel App
+      "i.pinimg.com", // Pinterest
+      "cdnjs.cloudflare.com", // CDN Cloud Flare
+      "fonts.googleapis.com", // Fonts Google
     ],
   },
   rewrites: async () => [
