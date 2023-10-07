@@ -41,7 +41,7 @@ export default function Home({ posts }) {
               Hi, I am{" "}
               <span className="text-primary-color-500 dark:text-primary-color-dark-500">Jamil</span>
             </h1>
-            <h2 className="prose pt-5 text-lg text-gray-600 dark:text-gray-300">
+            <h2 className="prose justify-center pt-5 text-justify text-lg text-gray-600 dark:text-gray-300">
               {`Welcome to ${siteMetadata.description}. I am Backend Engineer based on Jakarta, Indonesia. I am passionate about Web/Mobile Application and System Architecture. I really enjoy travelling and adventure to fulfill imagination to write a code. `}
               side projects and learning new technologies.
             </h2>
@@ -219,13 +219,15 @@ export default function Home({ posts }) {
           {!posts.length && "No posts found."}
           {posts.map((frontMatter) => {
             const { image, slug, date, title, summary, tags, views } = frontMatter
+            // const trimmedTitle = title.slice(0, 70) + (title.length > 70 ? '...' : '');
+            // const trimmedSummary = summary.slice(0, 100) + (summary.length > 100 ? '...' : '');
             return (
               <div
                 key={slug}
                 className="group my-6 flex bg-transparent bg-opacity-20 transition duration-100 hover:scale-105 hover:rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 <li className="">
-                  <article>
+                  <article className="mb-5 flex w-full flex-grow flex-col space-y-3 self-center px-5 sm:mb-0 sm:w-4/5 sm:p-0">
                     <div className="relative lg:flex">
                       <div className="relative md:shrink-0">
                         <Link to="" href={`/blog/${slug}`}>
@@ -253,13 +255,8 @@ export default function Home({ posts }) {
                           <div className="space-y-5 xl:col-span-4">
                             <div className="space-y-1">
                               <div>
-                                <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                                  <Link
-                                    href={`/blog/${slug}`}
-                                    className="line-clamp-1 max-w-none text-ellipsis text-gray-900 transition duration-500 ease-in-out hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-500"
-                                  >
-                                    {title}
-                                  </Link>
+                                <h2 className="leading-2 max-w-none text-2xl font-bold tracking-tight text-neutral-600 transition-all duration-300 dark:text-neutral-200 dark:hover:text-teal-400 lg:hover:text-teal-800">
+                                  <Link href={`/blog/${slug}`}>{title}</Link>
                                 </h2>
                               </div>
                               <div className="flex flex-wrap">
@@ -267,9 +264,9 @@ export default function Home({ posts }) {
                                   <Tag key={tag.name} text={tag.name} />
                                 ))}
                               </div>
-                              <span className="line-clamp-1 max-w-none text-ellipsis pt-5 text-gray-500 dark:text-gray-400">
+                              <div className="line-clamp-2 max-w-none text-ellipsis pt-5 text-gray-500 dark:text-gray-400">
                                 {summary}
-                              </span>
+                              </div>
                             </div>
                           </div>
                         </div>
