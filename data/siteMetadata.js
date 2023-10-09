@@ -1,7 +1,7 @@
 const siteMetadata = {
   title: "Blog | Muhammad Jamil",
   author: "Muhammad Jamil",
-  occupation: "Software Engineer",
+  occupation: "Backend Engineer",
   company: "Freelance",
   headerTitle: "Jamil Muhammad Blog",
   description: "My personal blog where I share magic with code",
