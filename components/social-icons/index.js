@@ -20,7 +20,7 @@ const components = {
   external: FiExternalLink,
 }
 
-const SocialIcon = ({ kind, href, size = 8 }) => {
+const SocialIcon = ({ kind, href, size = 8, eventName }) => {
   if (!href || (kind === "mail" && !/^mailto:\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/.test(href)))
     return null
 
@@ -32,6 +32,7 @@ const SocialIcon = ({ kind, href, size = 8 }) => {
       target="_blank"
       rel="noopener noreferrer"
       href={href}
+      data-umami-event={eventName}
     >
       <span className="sr-only">{kind}</span>
       <SocialSvg
