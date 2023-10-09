@@ -24,7 +24,12 @@ const ScrollTopAndComment = ({ slug }) => {
       >
         <Suspense>
           <span className="mb-16">
-            <ClapButton id={slug} namespace="post" hideCounterIfLessThan={0} />
+            <ClapButton
+              id={slug}
+              namespace="post"
+              hideCounterIfLessThan={0}
+              data-umami-event={`Support Clap: ${slug}`}
+            />
           </span>
         </Suspense>
       </div>

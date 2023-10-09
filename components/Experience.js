@@ -2,12 +2,16 @@ import Link from "@/components/Link"
 
 const Experience = ({ title, company, range, url, texts }) => {
   return (
-    <div className="my-3">
+    <>
       <div className="flex flex-row text-xl">
         <span className="text-gray-500 dark:text-gray-400">{title}</span>{" "}
         <span className="text-gray-500 dark:text-gray-400">&nbsp;@&nbsp;</span>{" "}
         <span className="text-primary-color-500">
-          <Link href={url} className="company">
+          <Link
+            href={url}
+            className="company"
+            data-umami-event={`Click Carir Company Name: ${company}`}
+          >
             {company}
           </Link>
         </span>
@@ -29,7 +33,7 @@ const Experience = ({ title, company, range, url, texts }) => {
       <div className="justify-center text-center text-2xl font-medium text-gray-200  dark:text-gray-600">
         &#126;&#126;&#126;
       </div>
-    </div>
+    </>
   )
 }
 

@@ -49,6 +49,7 @@ const Header = () => {
                     key={link.title}
                     href={link.href}
                     className="link-underline rounded px-2 py-1 text-gray-900 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700 sm:px-3 sm:py-2"
+                    data-umami-event={link?.eventName}
                   >
                     {link.title}
                   </Link>

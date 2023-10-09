@@ -140,6 +140,7 @@ export default function DropMenu() {
                       : "bg-white text-zinc-700 hover:bg-gray-300 dark:bg-zinc-800 dark:text-gray-200 dark:hover:bg-zinc-700",
                     "block px-4 py-2 text-sm")
                   }
+                  data-umami-event={`Navigate Menu: Projects`}
                 >
                   <div className="flex flex-row">
                     <Suspense>
@@ -159,6 +160,7 @@ export default function DropMenu() {
                       : "bg-white text-zinc-700 hover:bg-gray-300 dark:bg-zinc-800 dark:text-gray-200 dark:hover:bg-zinc-700",
                     "block px-4 py-2 text-sm")
                   }
+                  data-umami-event={`Navigate Menu: Guestbook`}
                 >
                   <div className="flex flex-row">
                     <Suspense>
@@ -178,6 +180,7 @@ export default function DropMenu() {
                       : "bg-white text-zinc-700 hover:bg-gray-300 dark:bg-zinc-800 dark:text-gray-200 dark:hover:bg-zinc-700",
                     "block px-4 py-2 text-sm")
                   }
+                  data-umami-event={`Navigate Menu: About`}
                 >
                   <div className="flex flex-row">
                     <Suspense>
