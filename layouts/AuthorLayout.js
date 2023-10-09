@@ -52,6 +52,7 @@ export default function AuthorLayout({ children, frontMatter }) {
                 data-screen-name="@jamilmuhammaddd"
                 target="_blank"
                 rel="noreferrer noopener"
+                data-umami-event="Contact Social: Twitter"
               >
                 <AiOutlineTwitter className="mb-0.5 mr-2 inline h-5 w-5" />
                 Say Hi!
@@ -83,7 +84,7 @@ export default function AuthorLayout({ children, frontMatter }) {
                 strokeWidth="1"
                 show={true}
               >
-                <span className="text-black dark:text-white"> Software Engineer. </span>
+                <span className="text-black dark:text-white"> Backend Engineer. </span>
               </RoughNotation>{" "}
               At the same time I am{" "}
               <RoughNotation
@@ -95,7 +96,7 @@ export default function AuthorLayout({ children, frontMatter }) {
                 multiline={true}
               >
                 actively on the lookout for remote opportunity which I can pursue in field of
-                Software Engineer
+                Backend Engineer
               </RoughNotation>
             </p>
             <p>
@@ -105,6 +106,7 @@ export default function AuthorLayout({ children, frontMatter }) {
               <Link
                 href={"mailto:jamielmuhammadd@gmail.com"}
                 className="special-underline no-underline hover:text-gray-100 dark:text-gray-100 hover:dark:text-gray-100"
+                data-umami-event="Contact Social: Email"
               >
                 Mail
                 <svg
@@ -125,6 +127,7 @@ export default function AuthorLayout({ children, frontMatter }) {
               <Link
                 href={"https://api.whatsapp.com/send?phone=081219561519&text=hi"}
                 className="special-underline no-underline hover:text-gray-100 dark:text-gray-100 hover:dark:text-gray-100"
+                data-umami-event="Contact Social: Whatsapp"
               >
                 Whatsapp
                 <svg
@@ -156,16 +159,17 @@ export default function AuthorLayout({ children, frontMatter }) {
             </h1>
           </div>
           <div className="max-w-none pb-8 pt-8 xl:col-span-2">
-            {experienceData.map((d) => (
-              <Experience
-                key={d.company}
-                title={d.title}
-                company={d.company}
-                location={d.location}
-                range={d.range}
-                url={d.url}
-                texts={d.texts}
-              />
+            {experienceData.map((d, index) => (
+              <div className="my-3" key={index}>
+                <Experience
+                  title={d.title}
+                  company={d.company}
+                  location={d.location}
+                  range={d.range}
+                  url={d.url}
+                  texts={d.texts}
+                />
+              </div>
             ))}
           </div>
         </div>
